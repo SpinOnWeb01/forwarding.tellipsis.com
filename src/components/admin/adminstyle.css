@@ -1,0 +1,183 @@
+.full-width {
+  width: 100% !important;
+}
+
+.MuiInputBase-input .MuiOutlinedInput-input .MuiInputBase-inputAdornedEnd .css-1uvydh2{
+  padding: 12.5px 0px 12.5px 14px !important;
+}
+
+.frm_date {
+  width: 100% !important;
+}
+.MuiStack-root.css-12sflcb-MuiStack-root {
+  width: 102%;
+}
+.header_cps button {
+  border-right: 1px solid #8b8b8b;
+  border-radius: 0;
+  height: 10px;
+  color: #fff !important;
+}
+.profile_name b {
+  font-size: 14px;
+  color: #fff;
+  text-transform: capitalize;
+  font-weight: 400;
+  margin: 0;
+  padding-left: 10px;
+}
+.css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root.Mui-checked, .css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root.MuiCheckbox-indeterminate {
+  color: #254336 !important;
+}
+.custom-header {
+    font-weight: bold !important;
+    color: #fff;
+    font-size: 15px;
+    background-color: #254336;
+    border: 0px;
+}
+.MuiDataGrid-root.MuiDataGrid-root--densityStandard.MuiDataGrid-withBorderColor.css-ptkaw2-MuiDataGrid-root {
+  background-color: #fff;
+  /* background-color: #ece3c7; */
+  border: 1px solid #fff;
+}
+
+/* main.right_sidebox {
+  background-color: #e2e8f04d;
+} */
+
+.pie-container {
+  background-color: #f0f0f0;
+  padding: 2px;
+  border-radius: 10px;
+}
+.css-1a5icme.Mui-checked {
+  color: #254336 !important;
+}
+.css-1rtnrqa {
+  color: #254336 !important;
+}
+.css-10jhk8h {
+  align-items: flex-start;
+  background-color: #254336 !important;
+  display: flex;
+  flex-direction: column;
+}
+
+
+ /* =====scrollbar-css===== */
+
+  /* Firefox */
+  /* #admin1  */
+  *{
+    /* scrollbar-width: thin; */
+    scrollbar-width: auto;
+    /* scrollbar-color: #a8a8a8 #DFE9EB ; */
+    scrollbar-color: #254336 #DFE9EB ;
+  }
+  
+  /* Chrome, Edge and Safari */
+  *::-webkit-scrollbar {
+    height: 10px;
+    width: 10px;
+  }
+  *::-webkit-scrollbar-track {
+    /* border-radius: 5px; */
+    background-color: #DFE9EB;
+  }
+  
+  *::-webkit-scrollbar-track:hover {
+    background-color: #B8C0C2;
+  }
+  
+  *::-webkit-scrollbar-track:active {
+    background-color: #B8C0C2;
+  }
+  
+  /* #admin1 */
+   * ::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: #254336;
+  }
+  
+  *::-webkit-scrollbar-thumb:hover {
+    background-color: #62A34B;
+  }
+  
+  *::-webkit-scrollbar-thumb:active {
+    background-color: #62A34B;
+  }
+
+  /* Scrollbar for Portal 2 */
+/* #admin1 */
+ *::-webkit-scrollbar-thumb {
+  background-color: #050f01;
+}
+/* #admin1 */
+ *::-webkit-scrollbar-track {
+  background-color: #254336;
+}
+
+.css-wf16b5 {
+  background-color: #264236 !important;
+}
+
+  /* ==========(03-9-2024)==New-css=Start========= */
+
+  .manage_top_header1 {
+    /* background-color: #254336 !important; */
+    background: linear-gradient(
+      180deg
+      , rgba(37, 67, 54, 1) 35%, rgba(107, 138, 122, 1) 100%);
+}
+
+      /* sidebar-start */
+    
+   
+    .pro-sidebar .pro-menu > ul > .pro-sub-menu > .pro-inner-list-item {
+      position: relative;
+      background-color: #1a3429 !important;
+  }
+  .pro-sidebar .pro-menu .pro-menu-item.pro-sub-menu > .pro-inner-item > .pro-arrow-wrapper .pro-arrow {
+    display: inline-block;
+    border-style: solid;
+    border-color: #f2f7ff !important;
+    border-width: 0 2px 2px 0;
+    padding: 2.5px;
+    vertical-align: middle;
+    transition: transform 0.3s;
+    transform: rotate(-45deg);
+}
+.pro-menu-item:hover {
+  /* background: #02ae9f !important; */
+  background: #1a3429 !important;
+  color: #fff;
+  /* box-shadow: inset 0 0 7px 5px #f5751d !important; */
+}
+      /* sidebar-end */
+
+
+       /* ======table_header_bg_color===== */
+ .MuiDataGrid-columnHeaders.MuiDataGrid-withBorderColor.css-1iyq7zh-MuiDataGrid-columnHeaders {
+  background: #254336 !important;
+}
+.MuiDataGrid-columnHeaders.MuiDataGrid-withBorderColor.css-y599qu {
+  background: #254336;
+  display: block;
+}
+
+main.right_sidebox.mobile_top_pddng.MuiBox-root.css-1v5u2yv {
+  background-color: #e2e8f04d;
+}
+.css-oo9unz-MuiDataGrid-root.MuiDataGrid-autoHeight {
+  height: auto;
+  background: #fff;
+}
+
+.css-1knaqv7-MuiButtonBase-root-MuiButton-root{
+    color: #254336 !important;
+}
+.css-vqmohf-MuiButtonBase-root-MuiRadio-root.Mui-checked {
+  color: #254336 !important;
+}
+  /* ==========(03-9-2024)==New-css=End========= */

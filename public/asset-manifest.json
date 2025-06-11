@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/static/css/main.54687fe4.css",
+    "main.js": "/static/js/main.8372dd46.js",
+    "static/js/787.70884da1.chunk.js": "/static/js/787.70884da1.chunk.js",
+    "static/media/forget_bg_cover.jpg": "/static/media/forget_bg_cover.9c69a4146fc3bcc15274.jpg",
+    "static/media/image03.jpg": "/static/media/image03.1616dd9c3ff9ff30ac34.jpg",
+    "static/media/mdlbg-cover.jpg": "/static/media/mdlbg-cover.4e9a1c6f84ed8587e28d.jpg",
+    "index.html": "/index.html",
+    "main.54687fe4.css.map": "/static/css/main.54687fe4.css.map",
+    "main.8372dd46.js.map": "/static/js/main.8372dd46.js.map",
+    "787.70884da1.chunk.js.map": "/static/js/787.70884da1.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.54687fe4.css",
+    "static/js/main.8372dd46.js"
+  ]
+}

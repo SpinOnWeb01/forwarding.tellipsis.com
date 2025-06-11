@@ -1,0 +1,278 @@
+.theme_options {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: right;
+  /* padding: 20px 0; */
+  padding: 10px 0;
+}
+.theme_options div {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  margin: 2px 10px;
+  border: 1px solid #fff;
+  display: inline-block;
+  opacity: 0.5;
+}
+.theme_options div.active {
+  opacity: 1;
+}
+.theme_options .menu_icon_button {
+  background-color: #0c367a !important;
+}
+
+#theme_white {
+  color: #eee;
+}
+
+#theme_blue {
+  color: black;
+}
+
+#theme_orange {
+  background-color: orangered;
+}
+
+#theme_purple {
+  background-color: purple;
+}
+
+#theme_green {
+  background-color: green;
+}
+
+#theme_black {
+  background-color: black;
+}
+
+.App.theme_white .contant_box {
+  margin: 0 auto;
+  background-color: #141B2B;
+  color: #f1f1f1;
+}
+.App.theme_white .contant_box .css-10jhk8h {
+  background-color: #23304a !important;
+}
+.App.theme_white .contant_box .MuiDataGrid-columnHeaders.MuiDataGrid-withBorderColor.css-1iyq7zh-MuiDataGrid-columnHeaders {
+  background: #23304a !important;
+}
+.App.theme_white .contant_box main.right_sidebox.user_profile_page {
+  background-color: #141b2b !important;
+}
+.App.theme_white .contant_box .makeStyles-formControl-3 .MuiInputBase-root {
+  color: #666;
+  height: 45px;
+  min-width: 120px;
+  border-style: solid;
+  border-width: 1px;
+  justify-content: center;
+}
+.App.theme_white .contant_box .card_button_box {
+  background-color: #1f2a40;
+}
+.App.theme_white .contant_box .select_title {
+  background-color: #23304A;
+  width: 100%;
+  text-align: center;
+  margin: 0 !important;
+}
+.App.theme_white .contant_box .selectgroup_box {
+  border-right: 1px solid #23304A;
+}
+.App.theme_white .contant_box .manage_mobile_logo {
+  padding: 8px;
+  background-color: #23304A;
+}
+.App.theme_white .contant_box .select_title span {
+  font-size: 16px;
+  color: #fff;
+  font-weight: 600;
+}
+.App.theme_white .contant_box .form_profile_box {
+  background-color: #1f2a40;
+}
+.App.theme_white .contant_box .pdf_div_box {
+  background-color: #1f2a40;
+}
+.App.theme_white .contant_box .brk_label {
+  color: #fff;
+  background: transparent !important;
+}
+.App.theme_white .contant_box .list-pdf-file {
+  color: #fff !important;
+}
+.App.theme_white .contant_box .card_box {
+  text-align: center;
+  background-color: #1f2a40;
+  border-radius: 0;
+  border: 0;
+  overflow: visible;
+}
+.App.theme_white .contant_box .manage_top_header {
+  box-shadow: rgb(20, 27, 43) 0px 0px 4px -1px !important;
+  background-color: rgba(253, 253, 253, 0.97) !important;
+  background-color: #1f2a40 !important;
+  border-bottom: 1px solid #141b2b;
+}
+.App.theme_white .contant_box .css-ptkaw2-MuiDataGrid-root {
+  border-color: rgb(35, 48, 74);
+}
+.App.theme_white .contant_box .pie-container {
+  background-color: #1f2a40;
+}
+.App.theme_white .contant_box button, .App.theme_white .contant_box ul, .App.theme_white .contant_box li, .App.theme_white .contant_box a, .App.theme_white .contant_box b, .App.theme_white .contant_box g, .App.theme_white .contant_box text {
+  fill: #fff !important;
+  color: #fff !important;
+}
+.App.theme_white .contant_box .form_flied_box {
+  border: 1px solid #fff !important;
+  color: #fff !important;
+}
+.App.theme_white .contant_box label {
+  color: #fff;
+  background: #141b2b;
+}
+.App.theme_white .contant_box .pro-sidebar .pro-menu > ul > .pro-sub-menu > .pro-inner-list-item {
+  position: relative;
+  background-color: #1f2a40 !important;
+}
+.App.theme_white .contant_box .custom-header {
+  background-color: #23304A;
+}
+.App.theme_white .contant_box .menu_icon_button {
+  background-color: #23304a !important;
+}
+.App.theme_white .contant_box .makeStyles-borderedRed-2 {
+  margin: 4px 4px 1px 4px !important;
+  box-shadow: 2px -1px 4px -3px #1F2A40;
+  border-left: 3px solid red;
+  background-color: #1F2A40;
+}
+.App.theme_white .contant_box .css-ptkaw2-MuiDataGrid-root .MuiDataGrid-withBorderColor {
+  border-color: rgb(35, 48, 74) !important;
+}
+.App.theme_white .contant_box .css-rzbl6g-MuiDataGrid-root .MuiDataGrid-withBorderColor {
+  border-color: rgb(35, 48, 74) !important;
+}
+.App.theme_white .contant_box .tbl_innr_box {
+  border: 1px solid #23304a;
+}
+.App.theme_white .contant_box * {
+  scrollbar-width: thin;
+  scrollbar-color: #6f6f6f #C6C6C6;
+  color: #fff;
+}
+.App.theme_white .contant_box .MuiDataGrid-columnHeaders.MuiDataGrid-withBorderColor.css-y599qu {
+  background: #23304a !important;
+  display: block;
+}
+.App.theme_white .contant_box .pro-sidebar-inner {
+  background: #1F2A40 !important;
+}
+.App.theme_white .contant_box .pro-inner-item {
+  border-bottom: 1px solid #141b2b;
+}
+.App.theme_white .contant_box .top_table {
+  border: 1px solid #23304a;
+}
+.App.theme_white .contant_box h2, .App.theme_white .contant_box h3, .App.theme_white .contant_box p, .App.theme_white .contant_box div {
+  color: #fff;
+}
+.App.theme_white .contant_box h5 {
+  line-height: 1.5;
+  margin: 0;
+  font-size: 20px;
+}
+.App.theme_white .contant_box .makeStyles-borderedRed-2 {
+  color: #fff !important;
+}
+
+.App.theme_blue .contant_box {
+  margin: 0 auto;
+}
+.App.theme_blue .contant_box h2, .App.theme_blue .contant_box h5 {
+  color: #000;
+}
+.App.theme_blue .contant_box p {
+  color: #000;
+}
+.App.theme_blue .contant_box main.right_sidebox.user_profile_page {
+  background-color: #f2f2f2 !important;
+}
+.App.theme_blue .contant_box .card_box {
+  text-align: center;
+  background-color: #fff;
+  border-radius: 0;
+  border: 0;
+  overflow: hidden;
+}
+.App.theme_blue .contant_box .card_button_box {
+  background-color: #fff;
+}
+.App.theme_blue .contant_box .pdf_div_box {
+  background-color: #fff;
+}
+.App.theme_blue .contant_box .body_row {
+  background-color: blue;
+}
+
+.App.theme_orange {
+  background-color: #f4c9b7;
+}
+.App.theme_orange .contant_box {
+  background-color: #f4dfd6;
+}
+.App.theme_orange .contant_box h2, .App.theme_orange .contant_box h5 {
+  color: #b64b1e;
+}
+.App.theme_orange .contant_box p {
+  color: #000;
+}
+
+.App.theme_purple {
+  background-color: #d0b7f4;
+}
+.App.theme_purple .contant_box {
+  background-color: #d8def4;
+}
+.App.theme_purple .contant_box h2, .App.theme_purple .contant_box h5 {
+  color: #ca00b9;
+}
+.App.theme_purple .contant_box p {
+  color: #000;
+}
+
+.App.theme_green {
+  background-color: #c3e3c1;
+}
+.App.theme_green .contant_box {
+  background-color: #e2f6e1;
+}
+.App.theme_green .contant_box h2, .App.theme_green .contant_box h5 {
+  color: #01db5c;
+}
+.App.theme_green .contant_box p {
+  color: #000;
+}
+
+.App.theme_black {
+  background-color: #5c5c5c;
+}
+.App.theme_black .contant_box {
+  background-color: #333;
+}
+.App.theme_black .contant_box h2, .App.theme_black .contant_box h5 {
+  color: #4b4b4b;
+}
+.App.theme_black .contant_box p {
+  color: #000;
+}
+
+.permission_label {
+  color: #fff !important;
+}/*# sourceMappingURL=Switcher.css.map */
+
+
+
+
