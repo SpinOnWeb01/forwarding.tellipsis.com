@@ -120,6 +120,7 @@ import {
   deleteAdminCallBlockReducer,
   getAdminCallBlockReducers,
   updateAdminCallBlockReducer,
+  updateAdminCallBlockStatusReducer,
 } from "./reducers/adminPortal_callBlockReducer";
 import {
   resellerDashboardBillingChartReducers,
@@ -171,7 +172,7 @@ import { createRedirectCampaignReducer, deleteRedirectCampaignReducer, getRedire
 import { createRedirectBuyerReducer, deleteRedirectBuyerReducer, getRedirectBuyerReducer, updateRedirectBuyerReducer } from "./reducers/redirectPortal/redirectPortal_buyerReducer";
 import { getRedirectDestinationReducer, getRedirectGroupsReducer, updateRedirectDestinationReducer } from "./reducers/redirectPortal/redirectPortal_destinationReducer";
 import { getRedirectBillingHistoryReducer } from "./reducers/redirectPortal/redirectPortal_billingHistoryReducer";
-import { createRedirectCallBlockReducer, deleteRedirectCallBlockReducer, getRedirectCallBlockReducer, updateRedirectCallBlockReducer } from "./reducers/redirectPortal/redirectPortal_callBlockReducer";
+import { createRedirectCallBlockReducer, deleteRedirectCallBlockReducer, getRedirectCallBlockReducer, updateRedirectCallBlockReducer, updateUserCallBlockStatusReducer } from "./reducers/redirectPortal/redirectPortal_callBlockReducer";
 import { createAdminPromotionReducer, getAdminPromotionReducers } from "./reducers/adminPortal/adminPortal_promotionReducer";
 
 const reducer = combineReducers({
@@ -295,6 +296,8 @@ const reducer = combineReducers({
   updateRedirectBuyer:updateRedirectBuyerReducer, //26-09-2024
   suspendDestination: suspendDestinationReducer, //30-04-2025
   updateUserStatus: updateUserStatusReducer, //07-05-2025
+  updateAdminCallBlockStatus: updateAdminCallBlockStatusReducer, //12-06-2025
+  updateUserCallBlockStatus: updateUserCallBlockStatusReducer, //12-06-2025
   //DELETE
   deleteUser: deleteUserReducer,
   deleteUserReseller: deleteUserResellerReducer, //11-07-2024

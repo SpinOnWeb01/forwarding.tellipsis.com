@@ -42,10 +42,14 @@ import {
   createRedirectCallBlock,
   deleteRedirectCallBlock,
   getRedirectCallBlock,
+  updateCallBlockStatus,
   updateRedirectCallBlock,
 } from "../../redux/actions/redirectPortal/redirectPortal_callBlockAction";
 import { makeStyles } from "@mui/styles";
 import InfoIcon from "@mui/icons-material/Info";
+import BlockIcon from "@mui/icons-material/Block";
+import CheckIcon from "@mui/icons-material/Check";
+import { updateCallBlockStaus } from "../../redux/actions/adminPortal_callBlockAction";
 const style = {
   position: "absolute",
   top: "50%",
@@ -170,6 +174,12 @@ function CallBlock({ userThem }) {
   const [name, setName] = useState("");
   const handleOpen = () => setOpen(true);
 
+  const [value, setValue] = useState("");
+  const [selectedRows, setSelectedRows] = useState([]);
+  const handleSelectionChange = (selection) => {
+    setSelectedRows(selection);
+  };
+
   const handleClose = () => {
     setOpen(false);
     setCallBlockId("");
@@ -190,6 +200,7 @@ function CallBlock({ userThem }) {
 
   const handleAlertClose = () => {
     setCallBlockId("");
+    setSelectedRows([]);
     setAlertMessage(false);
   };
 
@@ -242,27 +253,14 @@ function CallBlock({ userThem }) {
   };
 
   const handleMessage = useCallback(
-    (data) => {
-      setName(data?.details);
-      setCallBlockId(data?.callBlockId);
-      setAlertMessage(true);
-    },
-    [setName]
-  ); // Memoize event handler
-
-  const handleDelete = useCallback(
-    (id) => {
-      dispatch(
-        deleteRedirectCallBlock(
-          { id: callBlockId },
-          setResponse,
-          setCallBlockId
-        )
-      );
-      setAlertMessage(false);
-    },
-    [callBlockId, dispatch, setResponse, setCallBlockId]
-  ); // Memoize event handler
+      (data) => {
+        setName(data?.details);
+        setValue(data);
+        setCallBlockId(data?.callBlockId);
+        setAlertMessage(true);
+      },
+      [setName, setValue]
+    ); // Memoize event handler
 
   // --------------Columns Data Condition For Mobile View and Desktop View---------------------
   const theme = useTheme();
@@ -548,6 +546,48 @@ function CallBlock({ userThem }) {
         });
       }
     );
+
+     const selectedCallerDataSet = new Set(); // Using Set to avoid duplicates
+    
+      selectedRows.forEach((id) => {
+        const selectedRow = mockDataTeam.find((row) => row.id === id);
+        if (selectedRow) {
+          selectedCallerDataSet.add(selectedRow.callBlockId); // Add only did_id
+        }
+      });
+    
+      const selectedCallerData = Array.from(selectedCallerDataSet); // Convert to comma-separated string
+    
+      const handleDelete = useCallback(
+        () => {
+          const request = {
+            ids: selectedCallerData,
+            is_active: value,
+          };
+          if (value === "true" || value === "false") {
+            dispatch(updateCallBlockStatus(request, setResponse, setSelectedRows));
+            setAlertMessage(false);
+          } else {
+            dispatch(
+        deleteRedirectCallBlock(
+          { id: callBlockId },
+          setResponse,
+          setCallBlockId
+        )
+      );
+      setAlertMessage(false);
+          }
+        },
+        [
+          callBlockId,
+          selectedCallerData,
+          value,
+          dispatch,
+          setResponse,
+          setCallBlockId,
+          setSelectedRows
+        ]
+      ); // Memoize event handler
   return (
     <>
       <div className={`App ${userThem} `}>
@@ -593,29 +633,82 @@ function CallBlock({ userThem }) {
                             </p> */}
                               </div>
 
-                              <Button
-                                sx={{
-                                  fontSize: "15px",
-                                  borderRadius: "5px",
-                                  border: "none",
-                                  color: "#fff",
-                                  marginRight: "0px",
-                                  px: 4,
-                                  textTransform: "capitalize",
-                                  height: "35px",
-                                  width: "90px",
-                                  minWidth: "90px",
-                                  flexShrink: 0,
-                                  display: "inline-flex",
-                                  justifyContent: "space-evenly",
-                                  alignItems: "center",
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "space-between",
+                                  alignItems: "end",
                                 }}
-                                className="redirect_all_button_clr"
-                                onClick={handleOpen}
                               >
-                                Add
-                                <AddOutlinedIcon />
-                              </Button>
+                                <Box
+                                  sx={{
+                                    display: selectedRows[0] ? "block" : "none",
+                                  }}
+                                >
+                                  <IconButton
+                                    className="all_button_clr"
+                                    onClick={() => handleMessage("true")}
+                                    sx={{
+                                      background: "green !important",
+                                      fontSize: "15px",
+                                      borderRadius: "5px",
+                                      border: "none",
+                                      color: "#fff",
+                                      px: 4,
+                                      textTransform: "capitalize",
+                                      height: "35px",
+                                      width: "90px",
+                                      alignItems: "center",
+                                      position: "relative",
+                                      right: isMobile ? "5px" : "-15px",
+                                      textAlign: "center", // Add this line
+                                    }}
+                                  >
+                                    Active
+                                  </IconButton>
+                                  <IconButton
+                                    onClick={() => handleMessage("false")}
+                                    className="filter_block_btn"
+                                    style={{
+                                      height: "35px",
+                                      width: "90px",
+                                      px: 4,
+                                      marginLeft: "10px",
+                                      background: selectedRows.length
+                                        ? "red"
+                                        : "grey",
+                                    }}
+                                    disabled={selectedRows.length === 0}
+                                  >
+                                    Deactive
+                                  </IconButton>
+                                </Box>
+                                <Box>
+                                  <IconButton
+                                    className="all_button_clr"
+                                    onClick={handleOpen}
+                                    sx={{
+                                      fontSize: "15px",
+                                      borderRadius: "5px",
+                                      border: "none",
+                                      color: "#fff",
+                                      px: 4,
+                                      textTransform: "capitalize",
+                                      height: "35px",
+                                      width: "90px",
+                                      minWidth: "90px",
+                                      flexShrink: 0,
+                                      display: "inline-flex",
+                                      justifyContent: "space-evenly",
+                                      alignItems: "center",
+                                      position: "relative",
+                                    }}
+                                  >
+                                    Add
+                                    <AddOutlinedIcon />
+                                  </IconButton>
+                                </Box>
+                              </div>
                             </div>
 
                             <Dialog
@@ -1003,14 +1096,24 @@ function CallBlock({ userThem }) {
                                 id="alert-dialog-title"
                                 sx={{ color: "#133325", fontWeight: "600" }}
                               >
-                                {"Delete Confirmation"}
+                                {value === "true"
+                                  ? "Active Confirmation"
+                                  : value === "false"
+                                  ? "Deactive"
+                                  : "Delete Confirmation"}
                               </DialogTitle>
                               <DialogContent>
                                 <DialogContentText
                                   id="alert-dialog-description"
                                   sx={{ paddingBottom: "0px !important" }}
                                 >
-                                  Are you sure you want to delete {name} ?
+                                  Are you sure you want to{" "}
+                                  {value === "true"
+                                    ? "active"
+                                    : value === "false"
+                                    ? "deactive"
+                                    : "delete "}{" "}
+                                  {name} ?
                                 </DialogContentText>
                               </DialogContent>
                               <DialogActions
@@ -1043,6 +1146,12 @@ function CallBlock({ userThem }) {
                                   sx={{
                                     fontSize: "16px !impotant",
                                     marginTop: "20px",
+                                    background:
+                                      value === "true"
+                                        ? "green !important"
+                                        : value === "false"
+                                        ? "red !important"
+                                        : "#f44336 !important",
                                     padding: "10px 20px !important",
                                     textTransform: "capitalize !important",
                                     marginLeft: "0px !important",
@@ -1051,9 +1160,21 @@ function CallBlock({ userThem }) {
                                   className="all_button_clr"
                                   color="error"
                                   onClick={handleDelete}
-                                  startIcon={<DeleteIcon />}
+                                  startIcon={
+                                    value === "true" ? (
+                                      <CheckIcon />
+                                    ) : value === "false" ? (
+                                      <BlockIcon />
+                                    ) : (
+                                      <DeleteIcon />
+                                    )
+                                  }
                                 >
-                                  Delete
+                                  {value === "true"
+                                    ? "Active"
+                                    : value === "false"
+                                    ? "Deactive"
+                                    : "Delete"}
                                 </Button>
                               </DialogActions>
                             </Dialog>
@@ -1115,8 +1236,13 @@ function CallBlock({ userThem }) {
                                     <DataGrid
                                       rows={mockDataTeam}
                                       columns={columns}
+                                      checkboxSelection
                                       density="compact"
                                       headerClassName="custom-header"
+                                      rowSelectionModel={selectedRows}
+                                      onRowSelectionModelChange={
+                                        handleSelectionChange
+                                      }
                                       // getRowClassName={(params) =>
                                       //   isRowBordered(params) ? 'borderedGreen' : 'borderedRed'
                                       // }

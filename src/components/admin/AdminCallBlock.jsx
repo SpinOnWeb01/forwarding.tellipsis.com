@@ -48,9 +48,13 @@ import {
   deleteAdminCallBlock,
   getAdminCallBlock,
   updateAdminCallBlock,
+  updateCallBlockStaus,
 } from "../../redux/actions/adminPortal_callBlockAction";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import BlockIcon from "@mui/icons-material/Block";
+import CheckIcon from "@mui/icons-material/Check";
+
 const drawerWidth = 240;
 
 const style = {
@@ -178,8 +182,16 @@ function AdminCallBlock({ colorThem }) {
   const classes = useStyles();
   const theme = useTheme();
 
+  const [value, setValue] = useState("");
+
+  const [selectedRows, setSelectedRows] = useState([]);
+  const handleSelectionChange = (selection) => {
+    setSelectedRows(selection);
+  };
+
   const handleAlertClose = () => {
     setCallBlockId("");
+    setSelectedRows([]);
     setAlertMessage(false);
   };
 
@@ -269,20 +281,11 @@ function AdminCallBlock({ colorThem }) {
   const handleMessage = useCallback(
     (data) => {
       setName(data?.details);
+      setValue(data);
       setCallBlockId(data?.callBlockId);
       setAlertMessage(true);
     },
-    [setName]
-  ); // Memoize event handler
-
-  const handleDelete = useCallback(
-    (id) => {
-      dispatch(
-        deleteAdminCallBlock({ id: callBlockId }, setResponse, setCallBlockId)
-      );
-      setAlertMessage(false);
-    },
-    [callBlockId, dispatch, setResponse, setCallBlockId]
+    [setName, setValue]
   ); // Memoize event handler
 
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -305,7 +308,11 @@ function AdminCallBlock({ colorThem }) {
       renderHeader: () => (
         <Typography
           variant="body2"
-          sx={{ fontSize: "calc(0.6rem + 0.2vw)", fontWeight: "bold",color:"white !important" }}
+          sx={{
+            fontSize: "calc(0.6rem + 0.2vw)",
+            fontWeight: "bold",
+            color: "white !important",
+          }}
         >
           Action
         </Typography>
@@ -351,7 +358,11 @@ function AdminCallBlock({ colorThem }) {
       renderHeader: () => (
         <Typography
           variant="body2"
-          sx={{ fontSize: "calc(0.6rem + 0.2vw)", fontWeight: "bold",color:"white !important" }}
+          sx={{
+            fontSize: "calc(0.6rem + 0.2vw)",
+            fontWeight: "bold",
+            color: "white !important",
+          }}
         >
           User name
         </Typography>
@@ -381,7 +392,11 @@ function AdminCallBlock({ colorThem }) {
       renderHeader: () => (
         <Typography
           variant="body2"
-          sx={{ fontSize: "calc(0.6rem + 0.2vw)", fontWeight: "bold",color:"white !important" }}
+          sx={{
+            fontSize: "calc(0.6rem + 0.2vw)",
+            fontWeight: "bold",
+            color: "white !important",
+          }}
         >
           {isSmallScreen ? "Caller ID" : "Caller ID Number"}
         </Typography>
@@ -407,7 +422,11 @@ function AdminCallBlock({ colorThem }) {
       renderHeader: () => (
         <Typography
           variant="body2"
-          sx={{ fontSize: "calc(0.6rem + 0.2vw)", fontWeight: "bold",color:"white !important"}}
+          sx={{
+            fontSize: "calc(0.6rem + 0.2vw)",
+            fontWeight: "bold",
+            color: "white !important",
+          }}
         >
           Type
         </Typography>
@@ -434,7 +453,11 @@ function AdminCallBlock({ colorThem }) {
       renderHeader: () => (
         <Typography
           variant="body2"
-          sx={{ fontSize: "calc(0.6rem + 0.2vw)", fontWeight: "bold",color:"white !important"}}
+          sx={{
+            fontSize: "calc(0.6rem + 0.2vw)",
+            fontWeight: "bold",
+            color: "white !important",
+          }}
         >
           Status
         </Typography>
@@ -491,7 +514,11 @@ function AdminCallBlock({ colorThem }) {
       renderHeader: () => (
         <Typography
           variant="body2"
-          sx={{ fontSize: "calc(0.6rem + 0.2vw)", fontWeight: "bold",color:"white !important"}}
+          sx={{
+            fontSize: "calc(0.6rem + 0.2vw)",
+            fontWeight: "bold",
+            color: "white !important",
+          }}
         >
           Description
         </Typography>
@@ -527,6 +554,44 @@ function AdminCallBlock({ colorThem }) {
       });
     return calculatedRows;
   }, [state?.getAdminCallBlock?.getCallBlock?.data]);
+
+  const selectedCallerDataSet = new Set(); // Using Set to avoid duplicates
+
+  selectedRows.forEach((id) => {
+    const selectedRow = rows.find((row) => row.id === id);
+    if (selectedRow) {
+      selectedCallerDataSet.add(selectedRow.callBlockId); // Add only did_id
+    }
+  });
+
+  const selectedCallerData = Array.from(selectedCallerDataSet); // Convert to comma-separated string
+
+  const handleDelete = useCallback(
+    () => {
+      const request = {
+        ids: selectedCallerData,
+        is_active: value,
+      };
+      if (value === "true" || value === "false") {
+        dispatch(updateCallBlockStaus(request, setResponse, setSelectedRows));
+        setAlertMessage(false);
+      } else {
+        dispatch(
+          deleteAdminCallBlock({ id: callBlockId }, setResponse, setCallBlockId)
+        );
+        setAlertMessage(false);
+      }
+    },
+    [
+      callBlockId,
+      selectedCallerData,
+      value,
+      dispatch,
+      setResponse,
+      setCallBlockId,
+      setSelectedRows
+    ]
+  ); // Memoize event handler
 
   return (
     <>
@@ -577,30 +642,80 @@ function AdminCallBlock({ colorThem }) {
                           account.
                         </p> */}
                         </div>
-                        <IconButton
-                          className="all_button_clr"
-                          onClick={handleOpen}
-                          sx={{
-                            fontSize: "15px",
-                            borderRadius: "5px",
-                            border: "none",
-                            color: "#fff",
-                            px: 4,
-                            textTransform: "capitalize",
-                            height: "35px",
-                            width: "90px",
-                            minWidth: "90px",
-                            flexShrink: 0,
-                            display: "inline-flex",
-                            justifyContent: "space-evenly",
-                            alignItems: "center",
-                            position: "relative",
-                            right: isMobile ? "5px" : "-15px",
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "end",
                           }}
                         >
-                          Add
-                          <AddOutlinedIcon />
-                        </IconButton>
+                          <Box
+                            sx={{ display: selectedRows[0] ? "block" : "none" }}
+                          >
+                            <IconButton
+                              className="all_button_clr"
+                              onClick={() => handleMessage("true")}
+                              sx={{
+                                background: "green !important",
+                                fontSize: "15px",
+                                borderRadius: "5px",
+                                border: "none",
+                                color: "#fff",
+                                px: 4,
+                                textTransform: "capitalize",
+                                height: "35px",
+                                width: "90px",
+                                alignItems: "center",
+                                position: "relative",
+                                right: isMobile ? "5px" : "-15px",
+                                textAlign: "center", // Add this line
+                              }}
+                            >
+                              Active
+                            </IconButton>
+                            <IconButton
+                              onClick={() => handleMessage("false")}
+                              className="filter_block_btn"
+                              style={{
+                                height: "35px",
+                                width: "90px",
+                                px: 4,
+                                marginLeft: "10px",
+                                background: selectedRows.length
+                                  ? "red"
+                                  : "grey",
+                              }}
+                              disabled={selectedRows.length === 0}
+                            >
+                              Deactive
+                            </IconButton>
+                          </Box>
+                          <Box>
+                            <IconButton
+                              className="all_button_clr"
+                              onClick={handleOpen}
+                              sx={{
+                                fontSize: "15px",
+                                borderRadius: "5px",
+                                border: "none",
+                                color: "#fff",
+                                px: 4,
+                                textTransform: "capitalize",
+                                height: "35px",
+                                width: "90px",
+                                minWidth: "90px",
+                                flexShrink: 0,
+                                display: "inline-flex",
+                                justifyContent: "space-evenly",
+                                alignItems: "center",
+                                position: "relative",
+                              }}
+                            >
+                              Add
+                              <AddOutlinedIcon />
+                            </IconButton>
+                          </Box>
+                        </div>
 
                         <Dialog
                           open={open}
@@ -1023,14 +1138,24 @@ function AdminCallBlock({ colorThem }) {
                           id="alert-dialog-title"
                           sx={{ color: "#133325", fontWeight: "600" }}
                         >
-                          {"Delete Confirmation"}
+                          {value === "true"
+                            ? "Active Confirmation"
+                            : value === "false"
+                            ? "Deactive"
+                            : "Delete Confirmation"}
                         </DialogTitle>
                         <DialogContent>
                           <DialogContentText
                             id="alert-dialog-description"
                             sx={{ paddingBottom: "0px !important" }}
                           >
-                            Are you sure you want to delete {name} ?
+                            Are you sure you want to{" "}
+                            {value === "true"
+                              ? "active"
+                              : value === "false"
+                              ? "deactive"
+                              : "delete "}{" "}
+                            {name} ?
                           </DialogContentText>
                         </DialogContent>
                         <DialogActions
@@ -1063,6 +1188,12 @@ function AdminCallBlock({ colorThem }) {
                             sx={{
                               fontSize: "16px !impotant",
                               marginTop: "20px",
+                              background:
+                                value === "true"
+                                  ? "green !important"
+                                  : value === "false"
+                                  ? "red !important"
+                                  : "#f44336 !important",
                               padding: "10px 20px !important",
                               textTransform: "capitalize !important",
                               marginLeft: "0px !important",
@@ -1071,9 +1202,21 @@ function AdminCallBlock({ colorThem }) {
                             className="all_button_clr"
                             color="error"
                             onClick={handleDelete}
-                            startIcon={<DeleteIcon />}
+                            startIcon={
+                              value === "true" ? (
+                                <CheckIcon />
+                              ) : value === "false" ? (
+                                <BlockIcon />
+                              ) : (
+                                <DeleteIcon />
+                              )
+                            }
                           >
-                            Delete
+                            {value === "true"
+                              ? "Active"
+                              : value === "false"
+                              ? "Deactive"
+                              : "Delete"}
                           </Button>
                         </DialogActions>
                       </Dialog>
@@ -1084,9 +1227,12 @@ function AdminCallBlock({ colorThem }) {
                         <div style={{ height: "100%", width: "100%" }}>
                           <DataGrid
                             rows={rows}
+                            checkboxSelection
                             columns={columns}
                             density="compact"
                             headerClassName="custom-header"
+                            rowSelectionModel={selectedRows}
+                            onRowSelectionModelChange={handleSelectionChange}
                             components={{ Toolbar: GridToolbar }}
                             slots={{
                               toolbar: CustomToolbar,

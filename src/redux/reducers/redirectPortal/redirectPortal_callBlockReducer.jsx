@@ -1,4 +1,4 @@
-import { CREATE_REDIRECT_CALL_BLOCK_FAIL, CREATE_REDIRECT_CALL_BLOCK_REQUEST, CREATE_REDIRECT_CALL_BLOCK_SUCCESS, DELETE_REDIRECT_CALL_BLOCK_FAIL, DELETE_REDIRECT_CALL_BLOCK_REQUEST, DELETE_REDIRECT_CALL_BLOCK_SUCCESS, GET_REDIRECT_CALL_BLOCK_FAIL, GET_REDIRECT_CALL_BLOCK_REQUEST, GET_REDIRECT_CALL_BLOCK_SUCCESS, UPDATE_REDIRECT_CALL_BLOCK_FAIL, UPDATE_REDIRECT_CALL_BLOCK_REQUEST, UPDATE_REDIRECT_CALL_BLOCK_SUCCESS } from "../../constants/redirectPortal/redirectPortal_callBlockConstants"
+import { CREATE_REDIRECT_CALL_BLOCK_FAIL, CREATE_REDIRECT_CALL_BLOCK_REQUEST, CREATE_REDIRECT_CALL_BLOCK_SUCCESS, DELETE_REDIRECT_CALL_BLOCK_FAIL, DELETE_REDIRECT_CALL_BLOCK_REQUEST, DELETE_REDIRECT_CALL_BLOCK_SUCCESS, GET_REDIRECT_CALL_BLOCK_FAIL, GET_REDIRECT_CALL_BLOCK_REQUEST, GET_REDIRECT_CALL_BLOCK_SUCCESS, UPDATE_REDIRECT_CALL_BLOCK_FAIL, UPDATE_REDIRECT_CALL_BLOCK_REQUEST, UPDATE_REDIRECT_CALL_BLOCK_SUCCESS, UPDATE_USER_CALL_BLOCK_STATUS_FAIL, UPDATE_USER_CALL_BLOCK_STATUS_REQUEST, UPDATE_USER_CALL_BLOCK_STATUS_SUCCESS } from "../../constants/redirectPortal/redirectPortal_callBlockConstants"
 
 export const getRedirectCallBlockReducer = (state = { users: [] }, action) => {
 
@@ -113,6 +113,39 @@ export const deleteRedirectCallBlockReducer = (state = {}, action) => {
                 message: action.payload.message
             }
         case DELETE_REDIRECT_CALL_BLOCK_FAIL:
+
+            return {
+
+                loading: false,
+
+                error: action.payload,
+            }
+
+        default:
+            return state
+    }
+}
+
+export const updateUserCallBlockStatusReducer = (state = {}, action) => {
+
+    switch (action.type) {
+        case UPDATE_USER_CALL_BLOCK_STATUS_REQUEST:
+
+            return {
+                ...state,
+
+                loading: true,
+            }
+        case UPDATE_USER_CALL_BLOCK_STATUS_SUCCESS:
+
+            return {
+                ...state,
+                loading: false,
+
+                isUpdated: action.payload,
+                message: action.payload
+            }
+        case UPDATE_USER_CALL_BLOCK_STATUS_FAIL:
 
             return {
 
