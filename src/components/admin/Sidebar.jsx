@@ -23,6 +23,7 @@ import RingVolumeIcon from "@mui/icons-material/RingVolume";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import "../admin/adminstyle.css";
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 
 // ========Mobile-sidebar===============>
 import Drawer from "@mui/material/Drawer";
@@ -790,6 +791,14 @@ function Sidebar({ colorThem }) {
                           >
                             Audit logs
                           </MenuItem>
+                          <MenuItem
+                            icon={<PeopleAltIcon />}
+                            onClick={(event) =>
+                              handleSubMenuClick(event, Router.ADMIN_ROLES)
+                            }
+                          >
+                            Roles
+                          </MenuItem>
                           {user.user_role === "Reseller" ? <></> : <></>}
                           {user.user_role === "Reseller" ? (
                             <></>
@@ -827,7 +836,9 @@ function Sidebar({ colorThem }) {
                               </MenuItem>
                             </>
                           )}
+                          
                         </SubMenu>
+                        
                       </Menu>
                     </ProSidebar>
                   </div>

@@ -12,7 +12,9 @@ export const getAdminCallActive = () => async (dispatch) => {
      const socket = socketIOClient(`${api.dev}`);
     socket.on("call_details", (data) => {
       // Handle the received data (e.g., update state, trigger a re-fetch)
+      console.log('data?.data', data?.data)
       if (data?.data !== undefined) {
+        
           // Get the count of objects in the received data
            const newDataCount = Object.keys(data.data).length;
           // Update state with the count of objects received in the current response

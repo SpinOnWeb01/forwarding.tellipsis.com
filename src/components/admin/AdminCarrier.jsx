@@ -205,6 +205,7 @@ function AdminCarrier({ colorThem }) {
       routeType,
       username,
       status,
+      password,
       setOpenModal,
       setResponse,
       handleCloseModal,
@@ -496,9 +497,9 @@ function AdminCarrier({ colorThem }) {
     {
       field: "status",
       headerName: "Status",
-      width: isXs ? 80 : 140,
+      width: isXs ? 80 : 100,
       minWidth: 80,
-      maxWidth: 140,
+      maxWidth: 100,
       headerClassName: "custom-header",
       headerAlign: "left",
       align: "left",
@@ -550,6 +551,32 @@ function AdminCarrier({ colorThem }) {
         );
       },
     },
+     {
+      field: "reg_status",
+      headerName: "Reg. Status",
+      width: isXs ? 80 : 140,
+      minWidth: 80,
+      maxWidth: 140,
+      headerClassName: "custom-header",
+      headerAlign: "left",
+      align: "left",
+      renderHeader: () => (
+        <Typography
+          variant="body2"
+          sx={{ fontSize: "calc(0.6rem + 0.2vw)", fontWeight: "bold",color:"white !important"}}
+        >
+          Reg. Status
+        </Typography>
+      ),
+      renderCell: (params) => {
+        return (
+          <div className="d-flex justify-content-between align-items-center">
+            {params.row.reg_status
+            }
+          </div>
+        );
+      },
+    },
   ];
 
   const rows = useMemo(() => {
@@ -567,6 +594,7 @@ function AdminCarrier({ colorThem }) {
           type: item?.type,
           reg_type: item?.reg_type,
           route_type: item?.route_type,
+          reg_status: item?.status,
         });
       });
     return calculatedRows;
@@ -1140,7 +1168,7 @@ function AdminCarrier({ colorThem }) {
                                       </Select>
                                     </FormControl>
 
-                                    {type === "Outbound" ? (<>
+                                    {/* {type === "Outbound" ? (<>
                                     <FormControl
                                       fullWidth
                                       style={{ width: "100%", margin: "7px 0" }}
@@ -1167,7 +1195,7 @@ function AdminCarrier({ colorThem }) {
                                         <MenuItem value={"Both"}>Both</MenuItem>
                                       </Select>
                                     </FormControl>
-                                    </>) : (<></>)}
+                                    </>) : (<></>)} */}
 
                                     <TextField
                                       style={{

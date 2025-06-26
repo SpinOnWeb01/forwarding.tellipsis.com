@@ -174,6 +174,7 @@ import { getRedirectDestinationReducer, getRedirectGroupsReducer, updateRedirect
 import { getRedirectBillingHistoryReducer } from "./reducers/redirectPortal/redirectPortal_billingHistoryReducer";
 import { createRedirectCallBlockReducer, deleteRedirectCallBlockReducer, getRedirectCallBlockReducer, updateRedirectCallBlockReducer, updateUserCallBlockStatusReducer } from "./reducers/redirectPortal/redirectPortal_callBlockReducer";
 import { createAdminPromotionReducer, getAdminPromotionReducers } from "./reducers/adminPortal/adminPortal_promotionReducer";
+import { createAdminRolesReducer, getAdminRolesReducers, updateAdminRolesReducer } from "./reducers/adminPortal/adminPortal_rolesReducers";
 
 const reducer = combineReducers({
   user: userReducer,
@@ -236,6 +237,7 @@ const reducer = combineReducers({
   getRedirectCallBlock: getRedirectCallBlockReducer, //16-09-2024
   getUserRedirectGroups:getRedirectGroupsReducer, //16-10-2024
   getAdminPromotion: getAdminPromotionReducers, //18-02-2025
+  getAdminRoles: getAdminRolesReducers, //26-06-2025
   //CREATE
   createUser: createUserReducer,
   createUserReseller: createUserResellerReducer, //11-07-2024
@@ -267,6 +269,7 @@ const reducer = combineReducers({
   createRedirectBuyer: createRedirectBuyerReducer, //26-09-2024
   createAdminPromotion: createAdminPromotionReducer, //18-02-2025
   blockUserReport: blockUserReportReducers, //02-05-2025
+  createAdminRoles: createAdminRolesReducer, //26-06-2025
   //UPDATE
   updateUser: updateUserReducer,
   updateUserReseller: updateUserResellerReducer, //11-07-2024
@@ -298,6 +301,7 @@ const reducer = combineReducers({
   updateUserStatus: updateUserStatusReducer, //07-05-2025
   updateAdminCallBlockStatus: updateAdminCallBlockStatusReducer, //12-06-2025
   updateUserCallBlockStatus: updateUserCallBlockStatusReducer, //12-06-2025
+  updateAdminRoles: updateAdminRolesReducer, //26-06-2025
   //DELETE
   deleteUser: deleteUserReducer,
   deleteUserReseller: deleteUserResellerReducer, //11-07-2024

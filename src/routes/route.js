@@ -37,6 +37,7 @@ const Router = {
   ADMIN_BUYER: "/admin_portal/viewbuyer",
   ADMIN_PROMOTION: "/admin_portal/promotion",
   ADMIN_CMU: "/admin_portal/cmu",
+  ADMIN_ROLES: "/admin_portal/roles",
 
    //---------------- Reseller ROUTES ---------------------
    RESELLER_DASHBOARD: "/reseller_portal",

@@ -603,9 +603,9 @@ function AdminReport({ colorThem }) {
     {
       field: "hangup_reason",
       headerName: "Status",
-      width: isXs ? 120 : 140,
-      minWidth: 120,
-      maxWidth: 140,
+      width: isXs ? 150 : 195,
+      minWidth: 150,
+      maxWidth: 195,
       headerAlign: "start",
       align: "start",
       headerClassName: "custom-header",

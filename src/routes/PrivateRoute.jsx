@@ -74,6 +74,7 @@ import AdminPromotional from "../components/admin/AdminPromotional";
 import ErrorBoundary from "../pages/ErrorBoundaries";
 import AdminCMU from "../components/admin/AdminCMU";
 import { CircularProgress } from "@mui/material";
+import AdminRoles from "../components/admin/AdminRoles";
 
 Chart.register(CategoryScale);
 function PrivateRoute() {
@@ -261,6 +262,10 @@ function PrivateRoute() {
               <Route
                 path={Router.ADMIN_AUDIT_LOGS}
                 element={<AdminAuditLog colorThem={colorThem} />}
+              />
+              <Route
+                path={Router.ADMIN_ROLES}
+                element={<AdminRoles colorThem={colorThem}/> }
               />
               <Route
                 path={Router.ADMIN_IVR_UPLOADS}

@@ -231,6 +231,32 @@ function AdminCallActive({ colorThem }) {
 
   const columns = [
     {
+      field: "id",
+      headerName: "Sr. No.",
+      width: isXs ? 90 : 100,
+      minWidth: 90,
+      maxWidth: 100,
+      headerClassName: "custom-header",
+      headerAlign: "left",
+      align: "left",
+      renderHeader: () => (
+        <Typography
+          variant="body2"
+          sx={{ fontSize: "calc(0.6rem + 0.2vw)", fontWeight: "bold", color:"white !important"}}
+        >
+          Sr. No.
+        </Typography>
+      ),
+      renderCell: (params) => (
+        <Typography
+          variant="body2"
+          sx={{ fontSize: "calc(0.6rem + 0.2vw)" }} // Match header size or set your own
+        >
+          {params.value}
+        </Typography>
+      ),
+    },
+    {
       field: "DIDNumber",
       headerName: "Did Number",
       width: isXs ? 90 : 100,

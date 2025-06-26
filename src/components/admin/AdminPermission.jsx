@@ -16,6 +16,7 @@ import {
   getPermissions,
   putPermission,
 } from "../../redux/actions/adminPortal_permissionAction";
+import { getAdminRoles } from "../../redux/actions/adminPortal/adminPortal_rolesAction";
 
 const drawerWidth = 240;
 
@@ -23,7 +24,7 @@ function AdminPermission({ colorThem }) {
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
   const [usersData, setusersData] = React.useState(null);
-  const role = JSON.parse(localStorage.getItem("admin"))
+  const role = JSON.parse(localStorage.getItem("admin"));
 
   const [selectedValue, setSelectedValue] = React.useState("1");
   const [autoCompleteValue, setAutoCompleteValue] = React.useState(null);
@@ -55,6 +56,10 @@ function AdminPermission({ colorThem }) {
   }
 
   useEffect(() => {
+    dispatch(getAdminRoles());
+  }, [dispatch]);
+
+  useEffect(() => {
     if (!state.allPermissions.loading) {
       let permissions = state?.allPermissions?.permissions;
       const createList = permissions.filter((permission) =>
@@ -66,9 +71,12 @@ function AdminPermission({ colorThem }) {
       const deleteList = permissions.filter((permission) =>
         permission.name.includes("delete")
       );
-      const othersList = permissions.filter((permission) =>
-      !permission.name.includes("delete") && !permission.name.includes("update") && !permission.name.includes("create")
-    );
+      const othersList = permissions.filter(
+        (permission) =>
+          !permission.name.includes("delete") &&
+          !permission.name.includes("update") &&
+          !permission.name.includes("create")
+      );
       setCreateList(createList);
       setUpdateList(updateList);
       setDeleteList(deleteList);
@@ -117,8 +125,6 @@ function AdminPermission({ colorThem }) {
         );
         setOthersList(updatedArrayList);
       }
-
-
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.updatePermission.updating]);
@@ -144,8 +150,7 @@ function AdminPermission({ colorThem }) {
   };
 
   // ========================>
-  const userRoleChange = (newValue) => {
-  };
+  const userRoleChange = (newValue) => {};
 
   return (
     <>
@@ -263,7 +268,6 @@ function AdminPermission({ colorThem }) {
                     <Autocomplete
                       disablePortal
                       id="user-dropdown"
-
                       value={autoCompleteValue} // Make sure autoCompleteValue matches an option object
                       onChange={(event, newValue) => {
                         userGroupChange(newValue);
@@ -272,8 +276,8 @@ function AdminPermission({ colorThem }) {
                       onInputChange={(event, newInputValue) => {
                         setAutoCompleteInputValue(newInputValue);
                       }}
-                      options={usersGroupRolesList}
-                      getOptionLabel={(option) => option.description}
+                      options={state?.getAdminRoles?.roles}
+                      getOptionLabel={(option) => option.name}
                       sx={{ width: 300 }}
                       renderInput={(params) => (
                         <TextField {...params} label="Select Group" />
@@ -319,14 +323,15 @@ function AdminPermission({ colorThem }) {
                           <FormGroup className="selectgroup_row">
                             {createList.map((create) => {
                               return (
-                                <FormControlLabel key={create.id}
+                                <FormControlLabel
+                                  key={create.id}
                                   control={
                                     <Checkbox
                                       onChange={(e) =>
                                         handleRadioChange(e, "create", create)
                                       }
                                       checked={create.enabled}
-                                      disabled={role.user_role !== "Superadmin"} 
+                                      disabled={role.user_role !== "Superadmin"}
                                     />
                                   }
                                   label={create.description}
@@ -346,7 +351,8 @@ function AdminPermission({ colorThem }) {
                           <FormGroup className="selectgroup_row">
                             {updateList.map((update) => {
                               return (
-                                <FormControlLabel key={update.id}
+                                <FormControlLabel
+                                  key={update.id}
                                   control={
                                     <Checkbox
                                       onChange={(e) =>
@@ -364,20 +370,17 @@ function AdminPermission({ colorThem }) {
                         </Box>
                       </Grid>
                       <Grid item lg={3} sm={12} xs={12}>
-                        <Box className="selectgroup_box"
-                          
-                        >
+                        <Box className="selectgroup_box">
                           <FormControlLabel
                             className="select_title"
                             control={<Checkbox defaultChecked />}
                             label="Delete"
                           />
-                          <FormGroup className="selectgroup_row"
-                          
-                           >
+                          <FormGroup className="selectgroup_row">
                             {deleteList.map((del) => {
                               return (
-                                <FormControlLabel key={del.id}
+                                <FormControlLabel
+                                  key={del.id}
                                   control={
                                     <Checkbox
                                       onChange={(e) =>
@@ -404,11 +407,16 @@ function AdminPermission({ colorThem }) {
                           <FormGroup className="selectgroup_row">
                             {othersList.map((other) => {
                               return (
-                                <FormControlLabel key={other.id}
+                                <FormControlLabel
+                                  key={other.id}
                                   control={
                                     <Checkbox
                                       onChange={(e) =>
-                                        handleRadioChange(e, "othersList", other)
+                                        handleRadioChange(
+                                          e,
+                                          "othersList",
+                                          other
+                                        )
                                       }
                                       checked={other.enabled}
                                       disabled={role.user_role !== "Superadmin"} // Disable if not Superadmin

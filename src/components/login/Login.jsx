@@ -92,21 +92,14 @@ function Login() {
             localStorage.setItem("admin", JSON.stringify(values));
             localStorage.setItem("reseller", JSON.stringify(values));
             navigate("/reseller_portal");
-          } else if (values.user_role === "User") {
+          } else if (values.user_role !== "Superadmin" && values.user_role !== "Admin" && values.user_role !== "Reseller") {
             localStorage.setItem("current_user", values.user_name);
             localStorage.setItem(
               `user_${values.user_name}`,
               JSON.stringify(values)
             );
             navigate("/redirect_portal");
-          } else if (values.user_role === "Client") {
-            localStorage.setItem(
-              `user_${values.user_name}`,
-              JSON.stringify(values)
-            );
-            navigate("/redirect_portal");
-          }
-          // navigate("/dashboard");
+          } 
           // Clear the form fields
           setEmail("");
           setPassword("");

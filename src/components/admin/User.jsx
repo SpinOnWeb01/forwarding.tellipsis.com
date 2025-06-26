@@ -20,6 +20,9 @@ import {
   Radio,
   FormControlLabel,
   Grid,
+  Checkbox,
+  ListItemText,
+  OutlinedInput,
 } from "@mui/material";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import {
@@ -134,6 +137,18 @@ const theme = createTheme({
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 
+const permission = [
+  {
+    dashboard: "Dashboard",
+    manage_campaign: "Manage Campaign",
+    did_tfn_number: "DID/TFN Number",
+    report: "Report",
+    call_block: "Call Block",
+    active_calls: "Live Calls",
+    minutes_log: "Minutes Log",
+  },
+];
+
 const inpVal = {
   userName: "",
   email: "",
@@ -205,6 +220,11 @@ function User({ colorThem }) {
 
   const handlePasswordVisibility = () => {
     setShowPassword(!showPassword);
+  };
+
+  const handlePermissionChange = (event) => {
+    const value = event.target.value;
+    setSelectedPermissions(value);
   };
 
   const handleOpen = () => setOpen(true);
@@ -515,16 +535,13 @@ function User({ colorThem }) {
           } else if (values.user_role === "Reseller") {
             localStorage.setItem("reseller", JSON.stringify(values));
             window.open("/reseller_portal");
-          } else if (values.user_role === "User") {
+          } else if (values.user_role !== "Superadmin" && values.user_role !== "Admin" && values.user_role !== "Reseller") {
             localStorage.setItem(
               `user_${values.user_name}`,
               JSON.stringify(values)
             );
             localStorage.setItem("current_user", values.user_name);
             window.open("/redirect_portal");
-          } else if (values.user_role === "Client") {
-            localStorage.setItem("user", JSON.stringify(values));
-            navigate("/redirect_portal");
           }
 
           dispatch(login(values));
@@ -921,6 +938,25 @@ function User({ colorThem }) {
             ) : (
               <></>
             )}
+            {params.row.role === "client" ? (
+              <>
+                <div
+                  className="role_box"
+                  style={{
+                    color: "black",
+                    background: "#B8DAFF",
+                    padding: isMobile ? "5px" : "7px",
+                    borderRadius: "5px",
+                    fontSize: "calc(0.6rem + 0.2vw)",
+                    textTransform: "capitalize",
+                  }}
+                >
+                  {params.row.role}
+                </div>
+              </>
+            ) : (
+              <></>
+            )}
           </div>
         );
       },
@@ -1175,27 +1211,27 @@ function User({ colorThem }) {
     },
   ];
 
-  useEffect(() => {
-    if (uId !== "") {
-      let config = {
-        method: "get",
-        maxBodyLength: Infinity,
-        url: `${api.dev}/api/getuserextensions?user_id=${uId}`,
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token.access_token} `,
-        },
-      };
-      axios
-        .request(config)
-        .then((response) => {
-          setExtensionNumber(response?.data);
-        })
-        .catch((error) => {
-          console.log("error", error);
-        });
-    }
-  }, [uId]);
+  // useEffect(() => {
+  //   if (uId !== "") {
+  //     let config = {
+  //       method: "get",
+  //       maxBodyLength: Infinity,
+  //       url: `${api.dev}/api/getuserextensions?user_id=${uId}`,
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${token.access_token} `,
+  //       },
+  //     };
+  //     axios
+  //       .request(config)
+  //       .then((response) => {
+  //         setExtensionNumber(response?.data);
+  //       })
+  //       .catch((error) => {
+  //         console.log("error", error);
+  //       });
+  //   }
+  // }, [uId]);
 
   useEffect(() => {
     // Display error toast only if an error occurred and it hasn't been displayed yet
@@ -1585,6 +1621,49 @@ function User({ colorThem }) {
                           </FormControl>
                         </>
                       )}
+                      <FormControl
+                                    style={{
+                                      width: "100%",
+                                      margin: "5px 0 5px 0",
+                                    }}
+                                  >
+                                    <InputLabel id="demo-multiple-checkbox-label">
+                                      Enable Feature
+                                    </InputLabel>
+                                    <Select
+                                      style={{ textAlign: "left" }}
+                                      labelId="demo-multiple-checkbox-label"
+                                      label="Enable Feature"
+                                      id="demo-multiple-checkbox"
+                                      multiple
+                                      fullWidth
+                                      value={selectedPermissions}
+                                      onChange={handlePermissionChange}
+                                      input={
+                                        <OutlinedInput label="Enable Feature" />
+                                      }
+                                      renderValue={(selected) =>
+                                        selected
+                                          .map((key) => permission[0][key])
+                                          .join(", ")
+                                      }
+                                    >
+                                      {Object.entries(permission[0]).map(
+                                        ([key, value]) => (
+                                          <MenuItem key={key} value={key}>
+                                            <Checkbox
+                                              checked={
+                                                selectedPermissions.indexOf(
+                                                  key
+                                                ) > -1
+                                              }
+                                            />
+                                            <ListItemText primary={value} />
+                                          </MenuItem>
+                                        )
+                                      )}
+                                    </Select>
+                                  </FormControl>
                     </form>
                   </Typography>
                 </form>
@@ -2100,6 +2179,37 @@ function User({ colorThem }) {
                                 ) : (
                                   <></>
                                 )}
+
+                                <FormControl
+                        style={{ width: "100%", margin: "5px 0 5px 0" }}
+                      >
+                        <InputLabel id="demo-multiple-checkbox-label">
+                          Enable Feature
+                        </InputLabel>
+                        <Select
+                          style={{ textAlign: "left" }}
+                          labelId="demo-multiple-checkbox-label"
+                          label="Enable Feature"
+                          id="demo-multiple-checkbox"
+                          multiple
+                          fullWidth
+                          value={selectedPermissions}
+                          onChange={handlePermissionChange}
+                          input={<OutlinedInput label="Enable Feature" />}
+                          renderValue={(selected) =>
+                            selected.map((key) => permission[0][key]).join(", ")
+                          }
+                        >
+                          {Object.entries(permission[0]).map(([key, value]) => (
+                            <MenuItem key={key} value={key}>
+                              <Checkbox
+                                checked={selectedPermissions.indexOf(key) > -1}
+                              />
+                              <ListItemText primary={value} />
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
                               </form>
                             </form>
                           </DialogContent>

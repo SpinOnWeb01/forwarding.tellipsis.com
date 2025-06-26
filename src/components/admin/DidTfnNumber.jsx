@@ -141,20 +141,8 @@ function DID_TFN_number({ colorThem }) {
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem("admin"));
   const [selectedValue, setSelectedValue] = useState("t");
-  const [ivrAuthentication, setIvrAuthentication] = useState([
-    "no",
-    "random",
-    0,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-  ]);
+  const ivrOptions = ["no", "random", ...Array.from({ length: 100 }, (_, i) => i)];
+  const [ivrAuthentication, setIvrAuthentication] = useState([]);
   const [suspendValue, setSuspendValue] = useState(0);
   const [subType, setSubType] = useState("");
   const [didId, setDidId] = useState("");
@@ -350,7 +338,7 @@ function DID_TFN_number({ colorThem }) {
   };
 
   useEffect(() => {
-   // Check if userId is empty and reset redirectGroup, recording, and selectedValue
+    // Check if userId is empty and reset redirectGroup, recording, and selectedValue
     if (userId === "") {
       setRedirectGroup("");
       setRecording(false);
@@ -582,7 +570,11 @@ function DID_TFN_number({ colorThem }) {
       renderHeader: () => (
         <Typography
           variant="body2"
-          sx={{ fontSize: "calc(0.6rem + 0.2vw)", fontWeight: "bold",color:"white !important" }}
+          sx={{
+            fontSize: "calc(0.6rem + 0.2vw)",
+            fontWeight: "bold",
+            color: "white !important",
+          }}
         >
           Action
         </Typography>
@@ -624,7 +616,11 @@ function DID_TFN_number({ colorThem }) {
       renderHeader: () => (
         <Typography
           variant="body2"
-          sx={{ fontSize: "calc(0.6rem + 0.2vw)", fontWeight: "bold",color:"white !important" }}
+          sx={{
+            fontSize: "calc(0.6rem + 0.2vw)",
+            fontWeight: "bold",
+            color: "white !important",
+          }}
         >
           Destination
         </Typography>
@@ -650,7 +646,11 @@ function DID_TFN_number({ colorThem }) {
       renderHeader: () => (
         <Typography
           variant="body2"
-          sx={{ fontSize: "calc(0.6rem + 0.2vw)", fontWeight: "bold",color:"white !important" }}
+          sx={{
+            fontSize: "calc(0.6rem + 0.2vw)",
+            fontWeight: "bold",
+            color: "white !important",
+          }}
         >
           Destination
         </Typography>
@@ -680,7 +680,11 @@ function DID_TFN_number({ colorThem }) {
       renderHeader: () => (
         <Typography
           variant="body2"
-          sx={{ fontSize: "calc(0.6rem + 0.2vw)", fontWeight: "bold",color:"white !important" }}
+          sx={{
+            fontSize: "calc(0.6rem + 0.2vw)",
+            fontWeight: "bold",
+            color: "white !important",
+          }}
         >
           Reseller
         </Typography>
@@ -710,7 +714,11 @@ function DID_TFN_number({ colorThem }) {
       renderHeader: () => (
         <Typography
           variant="body2"
-          sx={{ fontSize: "calc(0.6rem + 0.2vw)", fontWeight: "bold",color:"white !important"}}
+          sx={{
+            fontSize: "calc(0.6rem + 0.2vw)",
+            fontWeight: "bold",
+            color: "white !important",
+          }}
         >
           {isSmallScreen ? "Camp. Name" : "Campaign Name"}
         </Typography>
@@ -744,7 +752,11 @@ function DID_TFN_number({ colorThem }) {
       renderHeader: () => (
         <Typography
           variant="body2"
-          sx={{ fontSize: "calc(0.6rem + 0.2vw)", fontWeight: "bold",color:"white !important"}}
+          sx={{
+            fontSize: "calc(0.6rem + 0.2vw)",
+            fontWeight: "bold",
+            color: "white !important",
+          }}
         >
           {isSmallScreen ? "IVR Auth." : "IVR Authent."}
         </Typography>
@@ -779,7 +791,11 @@ function DID_TFN_number({ colorThem }) {
       renderHeader: () => (
         <Typography
           variant="body2"
-          sx={{ fontSize: "calc(0.6rem + 0.2vw)", fontWeight: "bold",color:"white !important"}}
+          sx={{
+            fontSize: "calc(0.6rem + 0.2vw)",
+            fontWeight: "bold",
+            color: "white !important",
+          }}
         >
           {isSmallScreen ? "Recor." : "Recording"}
         </Typography>
@@ -816,7 +832,11 @@ function DID_TFN_number({ colorThem }) {
       renderHeader: () => (
         <Typography
           variant="body2"
-          sx={{ fontSize: "calc(0.6rem + 0.2vw)", fontWeight: "bold",color:"white !important"}}
+          sx={{
+            fontSize: "calc(0.6rem + 0.2vw)",
+            fontWeight: "bold",
+            color: "white !important",
+          }}
         >
           Status
         </Typography>
@@ -869,7 +889,11 @@ function DID_TFN_number({ colorThem }) {
       renderHeader: () => (
         <Typography
           variant="body2"
-          sx={{ fontSize: "calc(0.6rem + 0.2vw)", fontWeight: "bold",color:"white !important"}}
+          sx={{
+            fontSize: "calc(0.6rem + 0.2vw)",
+            fontWeight: "bold",
+            color: "white !important",
+          }}
         >
           Status
         </Typography>
@@ -899,7 +923,11 @@ function DID_TFN_number({ colorThem }) {
       renderHeader: () => (
         <Typography
           variant="body2"
-          sx={{ fontSize: "calc(0.6rem + 0.2vw)", fontWeight: "bold",color:"white !important"}}
+          sx={{
+            fontSize: "calc(0.6rem + 0.2vw)",
+            fontWeight: "bold",
+            color: "white !important",
+          }}
         >
           Carrier Name
         </Typography>
@@ -929,7 +957,11 @@ function DID_TFN_number({ colorThem }) {
       renderHeader: () => (
         <Typography
           variant="body2"
-          sx={{ fontSize: "calc(0.6rem + 0.2vw)", fontWeight: "bold",color:"white !important"}}
+          sx={{
+            fontSize: "calc(0.6rem + 0.2vw)",
+            fontWeight: "bold",
+            color: "white !important",
+          }}
         >
           Created At
         </Typography>
@@ -971,7 +1003,11 @@ function DID_TFN_number({ colorThem }) {
       renderHeader: () => (
         <Typography
           variant="body2"
-          sx={{ fontSize: "calc(0.6rem + 0.2vw)", fontWeight: "bold",color:"white !important"}}
+          sx={{
+            fontSize: "calc(0.6rem + 0.2vw)",
+            fontWeight: "bold",
+            color: "white !important",
+          }}
         >
           Update Date
         </Typography>
@@ -2371,20 +2407,11 @@ function DID_TFN_number({ colorThem }) {
                                       }}
                                       required
                                     >
-                                      <MenuItem value={"no"}>No</MenuItem>
-                                      <MenuItem value={"random"}>
-                                        Random
-                                      </MenuItem>
-                                      <MenuItem value={"0"}>0</MenuItem>
-                                      <MenuItem value={"1"}>1</MenuItem>
-                                      <MenuItem value={"2"}>2</MenuItem>
-                                      <MenuItem value={"3"}>3</MenuItem>
-                                      <MenuItem value={"4"}>4</MenuItem>
-                                      <MenuItem value={"5"}>5</MenuItem>
-                                      <MenuItem value={"6"}>6</MenuItem>
-                                      <MenuItem value={"7"}>7</MenuItem>
-                                      <MenuItem value={"8"}>8</MenuItem>
-                                      <MenuItem value={"9"}>9</MenuItem>
+                                      {ivrOptions.map((item) => (
+                                        <MenuItem key={item} value={item}>
+                                          {item.toString()}
+                                        </MenuItem>
+                                      ))}
                                     </Select>
                                   </FormControl>
 

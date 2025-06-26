@@ -16,6 +16,7 @@ import {
   getPermissions,
   putPermission,
 } from "../../redux/actions/adminPortal_permissionAction";
+import { getAdminRoles } from "../../redux/actions/adminPortal/adminPortal_rolesAction";
 
 const drawerWidth = 240;
 
@@ -23,7 +24,7 @@ function ResellerPermission({ colorThem }) {
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
   const [usersData, setusersData] = React.useState(null);
-  const role = JSON.parse(localStorage.getItem("admin"))
+  const role = JSON.parse(localStorage.getItem("admin"));
 
   const [selectedValue, setSelectedValue] = React.useState("1");
   const [autoCompleteValue, setAutoCompleteValue] = React.useState(null);
@@ -66,15 +67,22 @@ function ResellerPermission({ colorThem }) {
       const deleteList = permissions.filter((permission) =>
         permission.name.includes("delete")
       );
-      const othersList = permissions.filter((permission) =>
-      !permission.name.includes("delete") && !permission.name.includes("update") && !permission.name.includes("create")
-    );
+      const othersList = permissions.filter(
+        (permission) =>
+          !permission.name.includes("delete") &&
+          !permission.name.includes("update") &&
+          !permission.name.includes("create")
+      );
       setCreateList(createList);
       setUpdateList(updateList);
       setDeleteList(deleteList);
       setOthersList(othersList);
     }
   }, [state.allPermissions]);
+
+  useEffect(() => {
+    dispatch(getAdminRoles());
+  }, [dispatch]);
 
   useEffect(() => {
     if (state.updatePermission && state.updatePermission.updatedResponse) {
@@ -117,8 +125,6 @@ function ResellerPermission({ colorThem }) {
         );
         setOthersList(updatedArrayList);
       }
-
-
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.updatePermission.updating]);
@@ -144,8 +150,7 @@ function ResellerPermission({ colorThem }) {
   };
 
   // ========================>
-  const userRoleChange = (newValue) => {
-  };
+  const userRoleChange = (newValue) => {};
 
   return (
     <>
@@ -271,8 +276,8 @@ function ResellerPermission({ colorThem }) {
                       onInputChange={(event, newInputValue) => {
                         setAutoCompleteInputValue(newInputValue);
                       }}
-                      options={usersGroupRolesList}
-                      getOptionLabel={(option) => option.description}
+                      options={state?.getAdminRoles?.roles}
+                      getOptionLabel={(option) => option.name}
                       sx={{ width: 300 }}
                       renderInput={(params) => (
                         <TextField {...params} label="Select Group" />
@@ -318,14 +323,15 @@ function ResellerPermission({ colorThem }) {
                           <FormGroup className="selectgroup_row">
                             {createList.map((create) => {
                               return (
-                                <FormControlLabel key={create.id}
+                                <FormControlLabel
+                                  key={create.id}
                                   control={
                                     <Checkbox
                                       onChange={(e) =>
                                         handleRadioChange(e, "create", create)
                                       }
                                       checked={create.enabled}
-                                      disabled={role.user_role !== "Superadmin"} 
+                                      disabled={role.user_role !== "Superadmin"}
                                     />
                                   }
                                   label={create.description}
@@ -345,7 +351,8 @@ function ResellerPermission({ colorThem }) {
                           <FormGroup className="selectgroup_row">
                             {updateList.map((update) => {
                               return (
-                                <FormControlLabel key={update.id}
+                                <FormControlLabel
+                                  key={update.id}
                                   control={
                                     <Checkbox
                                       onChange={(e) =>
@@ -372,7 +379,8 @@ function ResellerPermission({ colorThem }) {
                           <FormGroup className="selectgroup_row">
                             {deleteList.map((del) => {
                               return (
-                                <FormControlLabel key={del.id}
+                                <FormControlLabel
+                                  key={del.id}
                                   control={
                                     <Checkbox
                                       onChange={(e) =>
@@ -399,11 +407,16 @@ function ResellerPermission({ colorThem }) {
                           <FormGroup className="selectgroup_row">
                             {othersList.map((other) => {
                               return (
-                                <FormControlLabel key={other.id}
+                                <FormControlLabel
+                                  key={other.id}
                                   control={
                                     <Checkbox
                                       onChange={(e) =>
-                                        handleRadioChange(e, "othersList", other)
+                                        handleRadioChange(
+                                          e,
+                                          "othersList",
+                                          other
+                                        )
                                       }
                                       checked={other.enabled}
                                       disabled={role.user_role !== "Superadmin"} // Disable if not Superadmin

@@ -96,6 +96,8 @@ function Header({ userThem, handleClickUser, toggleDrawer, open, setOpen }) {
       autoClose: 1500,
     });
     localStorage.removeItem("user");
+    localStorage.removeItem("current_user");
+    localStorage.removeItem("selectedTab");
     navigate("/");
     //   }
     // })

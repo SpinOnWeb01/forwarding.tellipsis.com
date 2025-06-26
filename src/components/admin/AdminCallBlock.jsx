@@ -185,9 +185,9 @@ function AdminCallBlock({ colorThem }) {
   const [value, setValue] = useState("");
 
   const [selectedRows, setSelectedRows] = useState([]);
-  const handleSelectionChange = (selection) => {
-    setSelectedRows(selection);
-  };
+  const handleSelectionChange = useCallback((newSelection) => {
+  setSelectedRows(newSelection);
+}, []);
 
   const handleAlertClose = () => {
     setCallBlockId("");
