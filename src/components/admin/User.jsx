@@ -560,6 +560,19 @@ function User({ colorThem }) {
   const isXs = useMediaQuery(theme.breakpoints.only("xs"));
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
+  function stringToColor(string) {
+  let hash = 0;
+  for (let i = 0; i < string.length; i++) {
+    hash = string.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  let color = "#";
+  for (let i = 0; i < 3; i++) {
+    const value = (hash >> (i * 8)) & 0xff;
+    color += ("00" + value.toString(16)).slice(-2);
+  }
+  return color;
+}
+
   const columns = [
     {
       field: "login",
@@ -838,129 +851,63 @@ function User({ colorThem }) {
       ),
     },
 
-    {
-      field: "role",
-      headerName: "Role",
-      width: isXs ? 80 : 100,
-      minWidth: 80,
-      maxWidth: 100,
-      headerClassName: "custom-header",
-      headerAlign: "left",
-      align: "left",
-      renderHeader: () => (
-        <Typography
-          variant="body2"
-          sx={{
+  {
+  field: "role",
+  headerName: "Role",
+  width: isXs ? 80 : 100,
+  minWidth: 80,
+  maxWidth: 100,
+  headerClassName: "custom-header",
+  headerAlign: "left",
+  align: "left",
+  renderHeader: () => (
+    <Typography
+      variant="body2"
+      sx={{
+        fontSize: "calc(0.6rem + 0.2vw)",
+        fontWeight: "bold",
+        color: "white !important",
+      }}
+    >
+      Role
+    </Typography>
+  ),
+  renderCell: (params) => {
+    const role = params.row.role;
+
+    // Predefined colors for main roles
+    const roleColors = {
+      Superadmin: "white",
+      Admin: "#D6D8DB",
+      Reseller: "#C3E6CB",
+    };
+
+    // If role not in predefined, generate dynamic color
+    const bgColor =
+      roleColors[role] ||
+      stringToColor(role); // Generate color for dynamic roles
+
+    return (
+      <div className="d-flex justify-content-between align-items-center">
+        <div
+          className="role_box"
+          style={{
+            color: "black",
+            background: bgColor,
+            padding: isMobile ? "5px" : "7px",
+            borderRadius: "5px",
             fontSize: "calc(0.6rem + 0.2vw)",
-            fontWeight: "bold",
-            color: "white !important",
+            textTransform: "capitalize",
           }}
         >
-          Role
-        </Typography>
-      ),
-      renderCell: (params) => {
-        return (
-          <div className="d-flex justify-content-between align-items-center">
-            {params.row.role === "Superadmin" ? (
-              <>
-                <div
-                  className="role_box"
-                  style={{
-                    color: "black",
-                    background: "white",
-                    padding: isMobile ? "5px" : "7px",
-                    borderRadius: "5px",
-                    fontSize: "calc(0.6rem + 0.2vw)",
-                    textTransform: "capitalize",
-                  }}
-                >
-                  {params.row.role}
-                </div>
-              </>
-            ) : (
-              <></>
-            )}
-            {params.row.role === "Admin" ? (
-              <>
-                <div
-                  className="role_box"
-                  style={{
-                    color: "black",
-                    background: "#D6D8DB",
-                    padding: isMobile ? "5px" : "7px",
-                    borderRadius: "5px",
-                    fontSize: "calc(0.6rem + 0.2vw)",
-                    textTransform: "capitalize",
-                  }}
-                >
-                  {params.row.role}
-                </div>
-              </>
-            ) : (
-              <></>
-            )}
-            {params.row.role === "Reseller" ? (
-              <>
-                <div
-                  className="role_box"
-                  style={{
-                    color: "black",
-                    background: "#C3E6CB",
-                    padding: isMobile ? "5px" : "7px",
-                    borderRadius: "5px",
-                    fontSize: "calc(0.6rem + 0.2vw)",
-                    textTransform: "capitalize",
-                  }}
-                >
-                  {params.row.role}
-                </div>
-              </>
-            ) : (
-              <></>
-            )}
-            {params.row.role === "User" ? (
-              <>
-                <div
-                  className="role_box"
-                  style={{
-                    color: "black",
-                    background: "#B8DAFF",
-                    padding: isMobile ? "5px" : "7px",
-                    borderRadius: "5px",
-                    fontSize: "calc(0.6rem + 0.2vw)",
-                    textTransform: "capitalize",
-                  }}
-                >
-                  {params.row.role}
-                </div>
-              </>
-            ) : (
-              <></>
-            )}
-            {params.row.role === "client" ? (
-              <>
-                <div
-                  className="role_box"
-                  style={{
-                    color: "black",
-                    background: "#B8DAFF",
-                    padding: isMobile ? "5px" : "7px",
-                    borderRadius: "5px",
-                    fontSize: "calc(0.6rem + 0.2vw)",
-                    textTransform: "capitalize",
-                  }}
-                >
-                  {params.row.role}
-                </div>
-              </>
-            ) : (
-              <></>
-            )}
-          </div>
-        );
-      },
-    },
+          {role}
+        </div>
+      </div>
+    );
+  },
+},
+
+
     {
       field: "created_date",
       headerName: "Date",

@@ -30,7 +30,7 @@ export const usersGroupRolesList = [
         id: 5,
         role: 'Client',
         description: 'Client',
-        isActive: true
+        isActive: false
     }
 
 ]

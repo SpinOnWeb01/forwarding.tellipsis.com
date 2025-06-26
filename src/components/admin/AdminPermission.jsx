@@ -8,7 +8,7 @@ import Grid from "@mui/material/Grid";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import TextField from "@mui/material/TextField";
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "../../Switcher.scss";
 import { usersGroupRolesList } from "../../mockData";
@@ -152,10 +152,15 @@ function AdminPermission({ colorThem }) {
   // ========================>
   const userRoleChange = (newValue) => {};
 
+  const activeRoles = useMemo(() => {
+  return (state?.getAdminRoles?.roles || []).filter(
+    (role) => role.is_active === true
+  );
+}, [state?.getAdminRoles?.roles]);
+
   return (
     <>
       <div className={`App ${colorThem} `}>
-        {/* {!state.updatePermission.updating && <CircularProgress  disableShrink/>} */}
 
         <div className="contant_box">
           <Box
@@ -167,100 +172,8 @@ function AdminPermission({ colorThem }) {
               width: { sm: `calc(100% - ${drawerWidth}px)` },
             }}
           >
-            {/* <FormControl>
-              <h4 id="demo-controlled-radio-buttons-group">User Role Access</h4>
-              <RadioGroup
-                row
-                aria-labelledby="demo-controlled-radio-buttons-group"
-                name="controlled-radio-buttons-group"
-                value={selectedValue}
-                onChange={handleChange}
-              >
-                <FormControlLabel
-                  value="1"
-                  control={<Radio />}
-                  label="Select User"
-                />
-                <FormControlLabel
-                  value="mal2e"
-                  control={<Radio />}
-                  label="SelectGroup"
-                />
-              </RadioGroup>
-            </FormControl> */}
-            <div style={{ margiTop: "15px" }}>
-              <Grid container spacing={0.5}>
-                {/* {selectedValue === "1" && (
-                  <Grid item xs={4} md={4}>
-                    <Autocomplete
-                      disabled
-                      disablePortal
-                      id="user-dropdown"
-                      value={autoCompleteValue} // Make sure autoCompleteValue matches an option object
-                      onChange={(event, newValue) => {
-                        // setAutoCompleteValue(newValue);
-                        userRoleChange(newValue);
-                      }}
-                      inputValue={autoCompleteInputValue}
-                      onInputChange={(event, newInputValue) => {
-                        setAutoCompleteInputValue(newInputValue);
-                      }}
-                      options={usersData}
-                      getOptionLabel={(option) => option.username}
-                      sx={{ width: 300 }}
-                      renderInput={(params) => (
-                        <TextField disabled {...params} label="Select User" />
-                      )}
-                    />
-                  </Grid>
-                )} */}
-                {/* {autoCompleteValue &&
-                <Grid item xs={4} md={4}>
-                  <Autocomplete
-                    disablePortal
-                    id="role"
-                    value={autoCompleteRoleValue}
-                    onChange={(event, newValue) => {
-                      userRoleChange(newValue);                       
-                    }}
-                    inputValue={autoCompleteRoleInputValue}
-                    onInputChange={(event, newInputValue) => {
-                      setAutoCompleteRoleInputValue(newInputValue);
-                    }}
-                    options={usersRolesList}
-                    getOptionLabel={(option) => option.role}
-                    sx={{ width: 300 }}
-                    renderInput={(params) => <TextField {...params} label="Select User Role" />}
-                  />
-                </Grid>
-              } */}
-              </Grid>
-            </div>
-            {/* {autoCompleteValue &&
-              <>
-                <div style={{ float: 'left', overflowY: 'auto', height: '40vh', width: '300px' }} className="permission_select_box rolesCheckboxes mt-15">
-                  <FormGroup>
-                    {allPermissions && allPermissions.length > 0 && allPermissions.map((role, index) => {
-                      return (
-                        <FormControlLabel
-                          className="slct_box"
-                          key={index}
-                          label={role.description}
-                          control={
-                            <Checkbox checked={role.isChecked} onChange={(e) => handleRadioChange(e, role)} name="role" />
-                          }
-                        />
-                      )
-                    })}
-                  </FormGroup>
-                </div>
-                <div style={{ float: 'right' }} className="mt-15">
-                  <Button variant="contained">Save</Button>
-                </div>
-              </>
-            } */}
-
-            <div style={{ marginTop: "15px" }}>
+           
+           <div style={{ marginTop: "15px" }}>
               <Grid container spacing={1}>
                 {/* {selectedValue === "mal2e" && ( */}
                 <Grid item md={12}>
@@ -276,7 +189,7 @@ function AdminPermission({ colorThem }) {
                       onInputChange={(event, newInputValue) => {
                         setAutoCompleteInputValue(newInputValue);
                       }}
-                      options={state?.getAdminRoles?.roles}
+                      options={activeRoles}
                       getOptionLabel={(option) => option.name}
                       sx={{ width: 300 }}
                       renderInput={(params) => (
@@ -291,28 +204,7 @@ function AdminPermission({ colorThem }) {
                       style={{ padding: "20px 0px" }}
                       spacing={2}
                     >
-                      {/* <Grid item lg={3} sm={12} xs={12}>
-                        <Box className="selectgroup_box">
-                          <FormControlLabel
-                            className="select_title"
-                            control={<Checkbox defaultChecked />}
-                            label="Read"
-                          />
-                          <FormGroup className="selectgroup_row">
-                            <FormControlLabel
-                              required
-                              control={<Checkbox />}
-                              label="Required"
-                              disabled={role.user_role !== "Superadmin"} // Disable if not Superadmin
-                            />
-                            <FormControlLabel
-                              control={<Checkbox />}
-                              label="Disabled"
-                              disabled={role.user_role !== "Superadmin"} // Disable if not Superadmin
-                            />
-                          </FormGroup>
-                        </Box>
-                      </Grid> */}
+                     
                       <Grid item lg={3} sm={12} xs={12}>
                         <Box className="selectgroup_box">
                           <FormControlLabel
